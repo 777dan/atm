@@ -1,57 +1,41 @@
-// let card = {
-//     number: 1234567,
-//     name: "John",
-//     surname: "Jackson",
-//     code: 1234,
-//     account: 200,
-//     bankName: "UkrBank"
-// }
-
-let card1 = {
-    number: 1234567,
-    name: "John",
-    surname: "Jackson",
-    code: 1234,
-    account: 200,
-    bankName: "UkrBank"
+function BankAccount(number, name, surname, code, account, bankName) {
+    this.number = number;
+    this.name = name;
+    this.surname = surname;
+    this.code = code;
+    this.account = account;
+    this.bankName = bankName;
 }
+let card1 = new BankAccount(1234567, "John", "Jackson", 1234, 200, "UkrBank");
+let card2 = new BankAccount(2948200, "Emma", "Anderson", 1234, 300, "UkrBank");
+let card3 = new BankAccount(7234043, "Greg", "Smith", 1234, 100, "UkrBank");
 
-let card2 = {
-    number: 2948200,
-    name: "Emma",
-    surname: "Anderson",
-    code: 1234,
-    account: 300,
-    bankName: "UkrBank"
-}
-
-let card3 = {
-    number: 7234043,
-    name: "Greg",
-    surname: "Smith",
-    code: 1234,
-    account: 100,
-    bankName: "UkrBank"
-}
 const cards = [card1, card2, card3];
 
-let atm = {
-    number: 1234,
-    withdraw: function (card, sum) {
+function CashMachine(number) {
+    this.number = number;
+    this.withdraw = function (card, sum) {
         tempAccount = card.account;
         card.account -= sum;
         alert(`Before withdrawing: ${tempAccount}$ After withrdawing: ${card.account}$`);
-    },
-    checkCard: function (card) {
+    };
+    this.checkCard = function (card) {
         if (card.code === this.number) return true;
         else return false;
-    }
+    };
 }
 
-for (let i = 0; i < cards.length; i++) {
-    if (atm.checkCard(cards[i], 1234)) {
-        atm.withdraw(cards[i], 20);
-    } else {
-        alert("Error! The entered code is not correct")
+let atm1 = new CashMachine(1234);
+let atm2 = new CashMachine(3255);
+
+const atms = [atm1, atm2];
+
+for (let i = 0; i < atms.length; i++) {
+    for (let j = 0; j < cards.length; j++) {
+        if (atms[i].checkCard(cards[j])) {
+            atms[i].withdraw(cards[j], 20);
+        } else {
+            alert("Error! The entered code is not correct")
+        }
     }
 }
