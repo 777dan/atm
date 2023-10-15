@@ -14,14 +14,19 @@ const cards = [card1, card2, card3];
 
 function CashMachine(number) {
     this.number = number;
-    this.withdraw = function (card, sum) {
-        tempAccount = card.account;
-        card.account -= sum;
-        alert(`Before withdrawing: ${tempAccount}$ After withrdawing: ${card.account}$`);
+    this.withdraw = function (sum) {
+        for (let i = 0; i < cards.length; i++) {
+            if (this.checkCard(cards[i])) {
+                tempAccount = cards[i].account;
+                cards[i].account -= sum;
+                alert(`Before withdrawing: ${tempAccount}$ After withrdawing: ${cards[i].account}$`);
+            } else {
+                alert("Error! The entered code is not correct");
+            }
+        }
     };
     this.checkCard = function (card) {
-        if (card.code === this.number) return true;
-        else return false;
+        return card.code === this.number;
     };
 }
 
@@ -31,11 +36,5 @@ let atm2 = new CashMachine(3255);
 const atms = [atm1, atm2];
 
 for (let i = 0; i < atms.length; i++) {
-    for (let j = 0; j < cards.length; j++) {
-        if (atms[i].checkCard(cards[j])) {
-            atms[i].withdraw(cards[j], 20);
-        } else {
-            alert("Error! The entered code is not correct")
-        }
-    }
+    atms[i].withdraw(20);
 }
